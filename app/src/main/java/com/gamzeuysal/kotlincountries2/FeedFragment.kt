@@ -27,6 +27,8 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button.setOnClickListener {
+            //argument deger gönderme
+           // val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment(50)
             val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment()
             Navigation.findNavController(it).navigate(action)
         }

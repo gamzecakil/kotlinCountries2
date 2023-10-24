@@ -8,6 +8,8 @@ import android.view.ViewGroup
 
 class CountryFragment : Fragment() {
 
+    private  var countryUuid = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,6 +25,11 @@ class CountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            countryUuid = CountryFragmentArgs.fromBundle(it).countryUuid
+            println("CountryUuid : "+countryUuid)
+        }
     }
 
 }
