@@ -1,11 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //Navigation
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
     namespace 'com.gamzeuysal.kotlincountries2'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.gamzeuysal.kotlincountries2"
@@ -30,8 +34,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding{
+        enabled = true
+    }
 }
-
+def nav_version = "2.4.1"
+def lifeCycleExtensionVersion = '1.1.1'
+def supportVersion = '28.0.0'
+def retrofitVersion = '2.3.0'
+def glideVersion = '4.9.0'
+def rxJavaVersion = '2.1.1'
+def roomVersion = '2.2.3'
+def preferencesVersion = '1.1.0'
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -41,4 +55,41 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    //Life Cycle
+    implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
+
+    //Room Database
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+
+    //Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //Duplicate class error ---> closed
+    // implementation "com.google.android.material:material:1.1.0"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+
+    implementation "com.android.support:palette-v7:$supportVersion"
+    implementation "com.android.support:design:$supportVersion"
+
+    //Shared Preferences
+    implementation "androidx.preference:preference:$preferencesVersion"
+
 }
