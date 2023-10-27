@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gamzeuysal.kotlincountries2.R
 import com.gamzeuysal.kotlincountries2.adapter.CountryAdapter
+import com.gamzeuysal.kotlincountries2.util.myExtension
 import com.gamzeuysal.kotlincountries2.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -44,6 +45,11 @@ class FeedFragment : Fragment() {
         }
 
  */
+        val myString = "James"
+        myString.myExtension("Hetfield")
+
+
+
         //viewmodel initialize
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
 
