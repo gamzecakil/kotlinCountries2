@@ -45,8 +45,12 @@ class FeedFragment : Fragment() {
         }
 
  */
+        //Extensions
+        /*
         val myString = "James"
         myString.myExtension("Hetfield")
+
+         */
 
 
 
