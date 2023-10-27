@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.gamzeuysal.kotlincountries2.R
 import com.gamzeuysal.kotlincountries2.model.Country
+import com.gamzeuysal.kotlincountries2.util.dowloadFromUrl
+import com.gamzeuysal.kotlincountries2.util.placeholderProgressBar
 import com.gamzeuysal.kotlincountries2.view.FeedFragmentDirections
 import kotlinx.android.synthetic.main.fragment_country.view.*
 import kotlinx.android.synthetic.main.item_row.view.*
@@ -30,6 +32,12 @@ class CountryAdapter (val countyList : ArrayList<Country>) :RecyclerView.Adapter
          val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment()
          Navigation.findNavController(it).navigate(action)
      }
+    //Glide
+    countyList[position].imageUrl?.let {
+        holder.itemView.imageView.dowloadFromUrl(it,placeholderProgressBar(holder.itemView.context)
+
+    )
+    }
 
     }
 
