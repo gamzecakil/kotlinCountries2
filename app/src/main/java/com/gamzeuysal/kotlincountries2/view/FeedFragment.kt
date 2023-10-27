@@ -44,6 +44,15 @@ class FeedFragment : Fragment() {
         }
 
  */
+        //Extensions
+        /*
+        val myString = "James"
+        myString.myExtension("Hetfield")
+
+         */
+
+
+
         //viewmodel initialize
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
 
