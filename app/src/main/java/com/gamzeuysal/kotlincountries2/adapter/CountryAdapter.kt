@@ -29,7 +29,7 @@ class CountryAdapter (val countyList : ArrayList<Country>) :RecyclerView.Adapter
         holder.itemView.textRegion.text = countyList[position].countryRegion
      //bir itema tıklandıgında diğer fragmenta geçelim
      holder.itemView.setOnClickListener {
-         val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment()
+         val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment(countyList[position].uuid)
          Navigation.findNavController(it).navigate(action)
      }
     //Glide
