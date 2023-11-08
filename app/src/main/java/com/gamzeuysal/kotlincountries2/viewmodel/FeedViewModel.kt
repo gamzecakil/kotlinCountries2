@@ -47,7 +47,7 @@ class FeedViewModel(application : Application) : BaseViewModel(application){
 
     private fun getDataFromSQLite()
     {
-        countryLoading.value = trueer
+        countryLoading.value = true
         launch {
             val countries = CountryDatabase(getApplication()).countryDao().getAllCountries()
             showCountries(countries)
@@ -103,5 +103,10 @@ class FeedViewModel(application : Application) : BaseViewModel(application){
             showCountries(list)
         }
        customPreferences.saveTime(System.nanoTime())
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }
