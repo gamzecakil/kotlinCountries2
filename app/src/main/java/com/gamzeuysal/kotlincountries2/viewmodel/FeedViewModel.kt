@@ -1,16 +1,16 @@
 package com.gamzeuysal.kotlincountries2.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.gamzeuysal.kotlincountries2.model.Country
 import com.gamzeuysal.kotlincountries2.service.CountryAPIService
 import com.gamzeuysal.kotlincountries2.service.CountryDatabase
+import com.gamzeuysal.kotlincountries2.util.CustomSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class FeedViewModel(application : Application) : BaseViewModel(application){
@@ -18,15 +18,41 @@ class FeedViewModel(application : Application) : BaseViewModel(application){
     //verieri servisten alacagız
     private val countryApiService = CountryAPIService()
     private val disposable = CompositeDisposable()
-
+    private var customPreferences = CustomSharedPreferences(getApplication())
+    private var refreshTime = 10*60*1000*1000*1000L//6 sn 10 dk
     val countries = MutableLiveData<List<Country>>()
     val countryError = MutableLiveData<Boolean>()
     val countryLoading = MutableLiveData<Boolean>()
 
     //dumy datalar olusturalım
     fun refreshData(){
-    getDataFromAPI()
+        val  updateTime = customPreferences.getTime()
+        if(updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime )
+        {
+            //geçen süre olarak 10 dk daha az geçmişse
+            //veriyi room database'den çek
+            getDataFromSQLite()
 
+        }else{
+            //veriyi API'den çek
+            getDataFromAPI()
+        }
+
+
+    }
+
+    fun refreshFromAPI(){
+        getDataFromAPI()
+    }
+
+    private fun getDataFromSQLite()
+    {
+        countryLoading.value = trueer
+        launch {
+            val countries = CountryDatabase(getApplication()).countryDao().getAllCountries()
+            showCountries(countries)
+            Toast.makeText(getApplication(),"Countires From SQLite",Toast.LENGTH_LONG).show()
+        }
     }
    private fun getDataFromAPI(){
       //mutable live data tetikleyelim
@@ -41,6 +67,7 @@ class FeedViewModel(application : Application) : BaseViewModel(application){
                       //veriler gelmiş yüklenmiş
                        //aldığımız verileri sqlite kaydedelim.
                        storeInSqlite(t)
+                       Toast.makeText(getApplication(),"Countries From API",Toast.LENGTH_LONG).show()
                    }
 
                    override fun onError(e: Throwable) {
@@ -75,6 +102,6 @@ class FeedViewModel(application : Application) : BaseViewModel(application){
             }
             showCountries(list)
         }
-
+       customPreferences.saveTime(System.nanoTime())
     }
 }
