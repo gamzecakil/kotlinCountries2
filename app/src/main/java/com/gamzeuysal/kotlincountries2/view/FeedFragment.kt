@@ -68,7 +68,7 @@ class FeedFragment : Fragment() {
             recyclerViewCountryList.visibility = View.GONE
             textCountryError.visibility = View.GONE
             progressBarCountryLoading.visibility = View.VISIBLE
-            viewModel.refreshData()
+            viewModel.refreshFromAPI()
             //swiperefresh layoutunun progresbarını kapatalım
             swipeRefreshLayout.isRefreshing = false
         }

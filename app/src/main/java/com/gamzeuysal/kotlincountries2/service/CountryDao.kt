@@ -18,12 +18,12 @@ interface CountryDao {
     //List<Long> -> primary keys
     //vararg -> yukarıda 10 tane 15 tane gibi sayısı belirsiz country objesi veriyoruz.Ama tek tek veriyoruz ki bize farklı  List<Long> --> uuid objeleri döndürsün.
 
-    @Query("SELECT * FROM  country")
-    suspend fun  getAllCountries() : List<Country>
+    @Query("SELECT * FROM  Country")
+    abstract suspend fun  getAllCountries() : List<Country>
 
     @Query("SELECT * FROM Country WHERE  uuid = :countryId")
     suspend fun getCountry(countryId : Int) : Country
 
-    @Query("DELETE FROM country")
+    @Query("DELETE FROM Country")
     suspend fun  deleteAllCountries()
 }
