@@ -15,7 +15,7 @@ import com.gamzeuysal.kotlincountries2.view.FeedFragmentDirections
 import kotlinx.android.synthetic.main.fragment_country.view.*
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class CountryAdapter (val countyList : ArrayList<Country>) :RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
+class CountryAdapter (val countyList : ArrayList<Country>) :RecyclerView.Adapter<CountryAdapter.CountryViewHolder>(),CountryClickListener {
 
 /*
     class  CountryViewHolder( var view :View):RecyclerView.ViewHolder(view){
@@ -54,6 +54,7 @@ class  CountryViewHolder( var view :ItemRowBinding):RecyclerView.ViewHolder(view
 */
         //Data Binding
         holder.view.country = countyList[position]
+        holder.view.listener = this
     }
 
     override fun getItemCount(): Int {
@@ -64,5 +65,11 @@ class  CountryViewHolder( var view :ItemRowBinding):RecyclerView.ViewHolder(view
         countyList.clear()
         countyList.addAll(newCountryList)
         notifyDataSetChanged()//adapter'a verinin değiştiğini bildirmek için kullanıyoruz.
+    }
+
+    override fun onCountryClicked(view: View) {
+        val uuid = view.countryUuidtext.text.toString().toInt()
+        val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment(uuid)
+        Navigation.findNavController(view).navigate(action)
     }
 }
