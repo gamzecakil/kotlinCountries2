@@ -15,7 +15,7 @@ fun String.myExtension(myParameter:String){
 println(myParameter)
 }
  */
-fun ImageView.dowloadFromUrl(url:String,progressDrawable: CircularProgressDrawable){
+fun ImageView.dowloadFromUrl(url:String?,progressDrawable: CircularProgressDrawable){
     //Glide
     //Place holder -> internetten image'lar inene kadar ne gösterecegiz.
     val options = RequestOptions().placeholder(progressDrawable).error(R.mipmap.ic_launcher_round)
@@ -32,7 +32,7 @@ fun placeholderProgressBar(context: Context) :CircularProgressDrawable{
     }
 }
 //Data Binding for imageView
-@BindingAdapter("android.dowloadUrl")
-fun dowloadImage(view : ImageView,url:String){
+@BindingAdapter("android:downloadUrl")
+fun dowloadImage(view : ImageView,url:String?){
     view.dowloadFromUrl(url, placeholderProgressBar(view.context))
 }
